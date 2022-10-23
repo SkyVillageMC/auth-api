@@ -1,0 +1,33 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+generator db {
+  provider = "go run github.com/prisma/prisma-client-go"
+}
+
+model User {
+  id String @id @default(cuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  username String  @unique
+  email    String
+  password String
+  uuid     String
+  skinId   String?
+  capeId   String?
+
+  currentServer String?
+
+  accessToken String?
+  clientToken String?
+
+  allowChat Boolean @default(true)
+  allowMultiplayer Boolean @default(true)
+  allowRealms Boolean @default(true)
+}
+
+//TODO use a separate model for player textures
